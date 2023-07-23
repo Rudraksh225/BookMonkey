@@ -1,31 +1,35 @@
-import { addToCart } from '@/redux/slices/cartSlice'
+import { addToCart, clearCart } from '@/redux/slices/cartSlice'
 import Image from 'next/image'
 import {useRouter} from 'next/router'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import Product from "../../models/Product"
+import mongoose from "mongoose";
 
+const Slug = (product) => {
 
-const Slug = () => {
-
+  const productinfo = product.product
+  // const { product } = product
+  console.log("productinfo", product) 
   const router = useRouter()
   const { slug } = router.query
   
   const [pin, setPin] = useState();
   const [serviceAbility, setServiceAbility] = useState();
 
-  const product1 = {
-    id: 1,
-    name:'Energize your mind  ',
-    img: '/../public/books/book1.webp',
-    price: 458.00,
-  }
+  // const product1 = {
+  //   id: 1,
+  //   name:'Energize your mind  ',
+  //   img: '/../public/books/book1.webp',
+  //   price: 458.00,
+  // }
 
-  const product2 = {
-    id: 2,
-    name:'Energize your mind',
-    img: '/../public/books/book1.webp',
-    price: 458.00,
-  }
+  // const product2 = {
+  //   id: 2,
+  //   name:'Energize your mind',
+  //   img: '/../public/books/book1.webp',
+  //   price: 458.00,
+  // }
 
   const checkServiceAbility = async() => {
     let pins = await fetch('http://192.168.2.6:3000/api/pincode')
@@ -45,6 +49,12 @@ const Slug = () => {
 
   const dispatch = useDispatch();
 
+  const buyNow = (productinfo) => {
+    dispatch(clearCart());
+    dispatch(addToCart(productinfo));
+    // router.push('./checkout') //Currently paused this.   ********* This caused an error, solve this **********  **********~~~~~~~~~*********
+  }
+
   // const handleAddToCart = (product) => {
   //   console.log("Function called")
   //   dispatch(addToCart(product))
@@ -55,10 +65,10 @@ const Slug = () => {
       <section className="overflow-hidden text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap mx-auto lg:w-4/5">
-            <Image alt="ecommerce" className="lg:w-auto w-auto lg:h-[60vh] ml-[10vh] md:ml-5 h-[30vh] object-cover object-center rounded" src="/../public/books/book1.webp" width={400} height={100}/>
+            <Image alt="ecommerce" className="lg:w-auto w-auto lg:h-[60vh] ml-[10vh] md:ml-5 h-[30vh] object-cover object-center rounded" src={productinfo.img} width={400} height={100}/>
             <div className="w-full mt-6 lg:w-1/2 lg:pl-10 lg:py-6 lg:ml-56 lg:mt-0">
               <h2 className="text-sm tracking-widest text-gray-500 title-font">BRAND NAME</h2>
-              <h1 className="mb-1 text-3xl font-medium text-gray-900 title-font">Energize your mind</h1>
+              <h1 className="mb-1 text-3xl font-medium text-gray-900 title-font">{productinfo.title}</h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
                   <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
@@ -78,31 +88,18 @@ const Slug = () => {
                   </svg>
                   <span className="ml-3 text-gray-600">4 Reviews</span>
                 </span>
-                <span className="flex py-2 pl-3 ml-3 border-l-2 border-gray-200 space-x-2s">
-                  <a className="text-gray-500">
-                    <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
-                      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                    </svg>
-                  </a>
-                  <a className="text-gray-500">
-                    <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
-                      <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                    </svg>
-                  </a>
-                  <a className="text-gray-500">
-                    <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
-                      <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                    </svg>
-                  </a>
-                </span>
               </div>
-              <p className="mt-10 leading-relaxed">In this book, bestselling author and life coach Gaur Gopal Das decodes how the mind works. He combines his anecdotal style with analytical research to teach us how to discipline our mind for our greater well-being. Throughout this book, he provides interactive exercises, meditation techniques and worksheets to help us take charge of our mind.</p>
-              <div className="flex items-center pb-5 mt-6 mb-5 border-b-2 border-blue-100">
+              <p className="mt-10 leading-relaxed">{productinfo.description}</p>
+              <div className="pb-5 mt-6 mb-5 border-b-2 border-blue-100 ">
                 
               </div>
               <div className="flex justify-between">
-                <span className="mt-1 text-xl font-medium text-gray-900 title-font md:mt-0 md:text-2xl">&#8377; 458.00</span>
-                <button onClick={() => dispatch(addToCart(product1))} className="flex items-center justify-center w-auto px-3 py-2 ml-12 text-sm text-white bg-blue-500 border-0 rounded h-9 md:w-auto md:h-auto md:ml-auto focus:outline-none hover:bg-blue-600 md:text-base">
+
+                <span className="mt-1 text-xl font-medium text-gray-900 title-font md:mt-0 md:text-2xl">&#8377; {productinfo.price}</span>
+
+                <button onClick={() => buyNow(productinfo)} className='flex items-center justify-center w-auto px-2 py-2 -mr-4 text-sm text-white bg-blue-500 border-0 rounded right-5 md:mr-0 md:px-8 md:py-3 lg:text-base lg:ml-36 focus:outline-none'>Buy Now</button> 
+
+                <button onClick={() => dispatch(addToCart(productinfo))} className="flex items-center justify-center w-auto px-3 py-2 text-sm text-white bg-blue-500 border-0 rounded md:mr-0 -mr-7 h-9 md:w-auto md:h-auto md:ml-auto focus:outline-none hover:bg-blue-600 md:text-base">
                   Add To Cart <Image src='/../public/addtocart.png' alt='Add to cart' width={40} height={25} className='w-5 h-5 ml-5 md:w-25 md:h-25'/>
                 </button>
                 <button className="inline-flex items-center justify-center w-8 h-8 p-0 ml-4 text-gray-500 bg-gray-200 border-0 rounded-full lg:w-10 lg:h-10">
@@ -127,6 +124,18 @@ const Slug = () => {
       </section>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  
+  if(!mongoose.connections[0].readyState){
+    await mongoose.connect(process.env.MONGO_URI);
+  }
+
+  let product = await Product.findOne({ slug: context.query.slug })
+
+  // return { props: { product } }
+  return { props: { product: JSON.parse(JSON.stringify(product)) } }
 }
 
 export default Slug

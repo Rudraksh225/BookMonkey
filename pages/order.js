@@ -80,12 +80,12 @@ const Order = () => {
               <ol>
                 {item.map((item) => {
                   return(
-                    <li key={item.id}>
+                    <li key={item._id}>
                       <div className='flex justify-center my-10'>
               
                         <Image src={item.img} alt='Product image' className='ml-5 md:ml-10' height={100} width={100}/>
                         <div className='flex-col self-center'>
-                          <div className='mx-4 font-semibold md:mx-12'>{item.name}</div>
+                          <div className='mx-4 font-semibold md:mx-12'>{item.title}</div>
                           <div className='flex justify-center'>
                             
                             <p className=''>Quantity:<span className='mx-2 font-semibold pointer-events-none md:mx-3'>{item.quantity}</span></p>

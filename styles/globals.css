@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 body{
+    max-width: 100%;
+    overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: #888 #fff;
@@ -16,16 +18,27 @@ body::-webkit-scrollbar {
     .border-blue{
         @apply focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500;
     }
+
+    
 }
 
 @layer utilities{
     .scrollbar-hide::-webkit-scrollbar {
         display: none;
+        scroll-behavior: smooth;
     }
     
     /* For IE, Edge and Firefox */
     .scrollbar-hide {
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
+        scroll-behavior: smooth;
+    }
+
+    .hide-unwanted-scroll{
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+             box-sizing: border-box;
+        background-color: blue;
     }
 }
