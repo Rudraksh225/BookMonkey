@@ -33,6 +33,7 @@ export default function Home({ products }) {
 
             <div className='container flex py-8 mx-auto -m-4 overflow-x-scroll scrollbar-hide'>
               { products.map((item)=>{  
+                //legacyBehavior="true"
                 return <Link passHref={true} key={item._id} href={`/product/${item.slug}`} legacyBehavior>
                     <div className="ml-5 text-center cursor-pointer md:p-2 lg:ml-5 lg:p-2 basis-1/2">
                       <div className="flex justify-center w-[11vh] md:w-[18vh] lg:w-[23vh]">

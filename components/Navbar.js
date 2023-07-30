@@ -3,7 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { use, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = () => {
 
@@ -20,8 +21,33 @@ const Navbar = () => {
   useEffect(() => {
     const localStoreCart = localStorage.getItem("Cart");
   }, [])
-  
 
+  const removeCartNotify = (title) => toast.success(`${title} removed from cart`, {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+
+    const addCartNotify = (title) => toast.success(`${title} added to cart`, {
+      position: "bottom-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
+  // const decrementQuantity = (id) => {
+  //   dispatch(decrementQuantity(id));
+  //   addCartNotify;
+  // }
 
   const toggleCart = () =>{
     if(ref.current.classList.contains('translate-x-full')){
@@ -40,6 +66,7 @@ const Navbar = () => {
 
   return (
     <div className='hide-unwanted-scroll'>
+      
       {/* <div className="flex justify-between px-5 py-4"> */}
       <div className="top-0 flex flex-col items-center justify-center w-full p-3 bg-white shadow-md md:flex-row md:justify-start">
         <div className="ml-5 mr-36 md:mr-16 logo">
@@ -88,9 +115,9 @@ const Navbar = () => {
                 <div className="flex my-10 item">
                   <div className='w-2/3 font-semibold'>{item.title}</div>
                   <div className='flex items-center justify-center w-1/3 font-semibold'>
-                    <Image onClick={() => dispatch(decrementQuantity(item._id))} src='/../public/minus.png' alt='remove' width={20} height={10} className='cursor-pointer'/>
+                    <Image onClick={() => {dispatch(decrementQuantity(item._id)); removeCartNotify(item.title);}} src='/../public/minus.png' alt='remove' width={20} height={10} className='cursor-pointer'/>
                     <span className='mx-3 pointer-events-none'>{item.quantity}</span>
-                    <Image onClick={() => dispatch(incrementQuantity(item._id))} src='/../public/add.png' alt='add' width={20} height={15} className='cursor-pointer'/>
+                    <Image onClick={() => {dispatch(incrementQuantity(item._id)); addCartNotify(item.title)}} src='/../public/add.png' alt='add' width={20} height={15} className='cursor-pointer'/>
                   </div>
                 </div>
               </li>);
@@ -105,6 +132,10 @@ const Navbar = () => {
         <button className="flex px-8 py-2 mx-auto mt-6 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">Clear cart<Image src='/../public/clearcart.png' alt='Checkout' className='ml-4' width={25} height={20}/></button>
 
       </div>
+
+      <ToastContainer 
+        limit={2}
+      />
 
     </div>
   )

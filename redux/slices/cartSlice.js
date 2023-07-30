@@ -16,7 +16,6 @@ const cartSlice = createSlice({
     initialState,
     reducers:{
         addToCart(state, action){
-            console.log(action.payload)
             const itemInCart = state.cartItems.find((item) => item._id === action.payload._id);
             if (itemInCart) {
               itemInCart.quantity++;
@@ -27,20 +26,12 @@ const cartSlice = createSlice({
             state.cartTotalAmount += action.payload.price;
             Math.round(state.cartTotalAmount);
 
-            // try{
-            //   localStorage.setItem("Cart",JSON.stringify(state));
-            // }
-            // catch(e){
-            //   console.log(e)
-            // }
         },
 
         clearCart(state){
-          console.log("before clear cart:"+ state.cartItems)
           state.cartItems.splice(0, state.cartItems.length)
           state.cartTotalQuantity = 0;
           state.cartTotalAmount = 0;
-          console.log("after clear cart:"+ state.cartItems)
         },
 
         incrementQuantity: (state, action) => {

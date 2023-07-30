@@ -2,12 +2,12 @@ import Product from "../../models/Product"
 import connectDb from "../../middleware/mongoose"
 
 const handler = async (req, res) => {
-    console.log(req.body)
     
     try{
         if(req.method == 'POST'){
             for(let i=0; i<req.body.length; i++){
-                let p = await Product.findByIdAndUpdate(req.body[i].id, req.body[i]) 
+                let p = await Product.findByIdAndUpdate(req.body[i]._id, req.body[i]) 
+                console.log(p)
             }
             res.status(200).json({ success: "success"})
         }

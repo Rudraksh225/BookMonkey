@@ -5,12 +5,12 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Product from "../../models/Product"
 import mongoose from "mongoose";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const Slug = (product) => {
 
   const productinfo = product.product
-  // const { product } = product
-  console.log("productinfo", product) 
   const router = useRouter()
   const { slug } = router.query
   
@@ -32,7 +32,7 @@ const Slug = (product) => {
   // }
 
   const checkServiceAbility = async() => {
-    let pins = await fetch('http://192.168.2.6:3000/api/pincode')
+    let pins = await fetch('http://localhost:3000/api/pincode')
     let pinJson = await pins.json()
     if(pinJson.includes(parseInt(pin))){
       setServiceAbility(true)
@@ -40,12 +40,13 @@ const Slug = (product) => {
     else{
       setServiceAbility(false)
     }
-    console.log(serviceAbility)
   }
 
   const onChangePin = (e)=>{
     setPin(e.target.value)
   }
+
+  
 
   const dispatch = useDispatch();
 
@@ -63,10 +64,13 @@ const Slug = (product) => {
   return (
     <>
       <section className="overflow-hidden text-gray-600 body-font">
-        <div className="container px-5 py-24 mx-auto">
+
+      
+
+        <div className="container px-2 py-24 mx-auto">
           <div className="flex flex-wrap mx-auto lg:w-4/5">
-            <Image alt="ecommerce" className="lg:w-auto w-auto lg:h-[60vh] ml-[10vh] md:ml-5 h-[30vh] object-cover object-center rounded" src={productinfo.img} width={400} height={100}/>
-            <div className="w-full mt-6 lg:w-1/2 lg:pl-10 lg:py-6 lg:ml-56 lg:mt-0">
+            <Image alt="ecommerce" className=" lg:w-[35vh] lg:h-auto md:ml-5 lg:max-w-[40vh] max-h-[90vh] object-fill object-center rounded" src={productinfo.img} width={400} height={100}/> 
+            <div className="w-full mt-6 lg:w-1/2 lg:py-6 lg:ml-40 lg:mt-0">
               <h2 className="text-sm tracking-widest text-gray-500 title-font">BRAND NAME</h2>
               <h1 className="mb-1 text-3xl font-medium text-gray-900 title-font">{productinfo.title}</h1>
               <div className="flex mb-4">
@@ -86,18 +90,16 @@ const Slug = (product) => {
                   <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                   </svg>
-                  <span className="ml-3 text-gray-600">4 Reviews</span>
+                  <span className="ml-3 text-gray-600">4 Reviews</span> 
                 </span>
               </div>
               <p className="mt-10 leading-relaxed">{productinfo.description}</p>
-              <div className="pb-5 mt-6 mb-5 border-b-2 border-blue-100 ">
-                
-              </div>
+              <div className="pb-5 mt-6 mb-5 border-b-2 border-blue-100 "> </div>
               <div className="flex justify-between">
 
-                <span className="mt-1 text-xl font-medium text-gray-900 title-font md:mt-0 md:text-2xl">&#8377; {productinfo.price}</span>
+                <span className="lg:w-[15vh] mt-1 text-xl font-medium bg-red-500 text-gray-900 title-font md:mt-0 md:text-2xl">&#8377; {productinfo.price}</span>
 
-                <button onClick={() => buyNow(productinfo)} className='flex items-center justify-center w-auto px-2 py-2 -mr-4 text-sm text-white bg-blue-500 border-0 rounded right-5 md:mr-0 md:px-8 md:py-3 lg:text-base lg:ml-36 focus:outline-none'>Buy Now</button> 
+                <button onClick={() => buyNow(productinfo)} className='w-auto px-2 py-2 -mr-4 text-sm text-white bg-blue-500 border-0 rounded right-3 md:mr-0 md:px-8 md:py-3 lg:text-base lg:ml-36 md:ml-72 focus:outline-none'>Buy Now</button> 
 
                 <button onClick={() => dispatch(addToCart(productinfo))} className="flex items-center justify-center w-auto px-3 py-2 text-sm text-white bg-blue-500 border-0 rounded md:mr-0 -mr-7 h-9 md:w-auto md:h-auto md:ml-auto focus:outline-none hover:bg-blue-600 md:text-base">
                   Add To Cart <Image src='/../public/addtocart.png' alt='Add to cart' width={40} height={25} className='w-5 h-5 ml-5 md:w-25 md:h-25'/>

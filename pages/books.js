@@ -2,9 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import Product from "../models/Product"
-import mongoose from "mongoose";
-
-//10:25
+import mongoose from "mongoose";  
 
 const Books = ({ products }) => {
 
