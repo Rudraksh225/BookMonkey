@@ -1,12 +1,15 @@
 import Product from "../../models/Product"
 import connectDb from "../../middleware/mongoose"
 import User from "../../models/User"
+var CryptoJS = require("crypto-js");
 
 const handler = async (req, res) => {
     
     try{
         if(req.method == 'POST'){
-            let u = new User(req.body)
+
+            const {name, email, password} = req.body
+            let u = new User({name, email, password:CryptoJS.AES.encrypt(`${password}`,`total59MonkeyCow`).toString()})
             await u.save();
             console.log(u); 
             res.status(200).json({ success: "success"})
