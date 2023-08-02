@@ -11,7 +11,7 @@ const handler = async (req, res) => {
             console.log(u); 
             res.status(200).json({ success: "success"})
         } 
-        else{
+        else{ 
             res.status(400).json({ error: `${req.method} method is not allowed`})
         }
     }
