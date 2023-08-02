@@ -9,7 +9,7 @@ const Signup = () => {
   const [name, setName] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
 
 
   const handleChange = (e) => {
@@ -40,7 +40,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    handleConfirm();
+    // handleConfirm();
     const data = {name, email, password}
 
     if(error == true){
