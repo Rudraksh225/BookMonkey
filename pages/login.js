@@ -1,13 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie';
+import Router from 'next/router';
 
 const Login = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  useEffect(() => {
+    // Check authentication status
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      // Redirect to home page if authenticated
+      Router.push('/')
+    }
+  }, []);
 
   const onChangeHandler = (e) => {
     if(e.target.name == "email"){
@@ -31,8 +43,11 @@ const Login = () => {
     })
     
     let response = await res.json();
+    console.log(response.token)
 
-    if(res.status == 200){
+    if(response.success == true){
+      localStorage.setItem("token",response.token)
+      Cookies.set('isLoggedIn', 'true');  //Set cookie isLoggedIn to true when user succesfully logged in
       toast.success('Logged in succesfully', {
         position: "bottom-center",
         autoClose: 4000,
@@ -43,8 +58,11 @@ const Login = () => {
         progress: undefined,  
         theme: "light",
         });
+        
+        
+        window.location.href = '/'
     }
-    else if(res.status == 401){
+    else if(response.success == false){
       toast.error(`${response.error}`, {
         position: "bottom-center",
         autoClose: 4000,
@@ -57,7 +75,6 @@ const Login = () => {
         });
     }
     console.log(res.status)
-    console.log(response.error)
   }
 
 
@@ -155,7 +172,7 @@ const Login = () => {
 
       <ToastContainer
         position="bottom-center"
-        autoClose={4000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

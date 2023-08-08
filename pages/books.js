@@ -15,7 +15,7 @@ const Books = ({ products }) => {
 
           <div className="flex flex-wrap -m-4">
 
-            { products.map((item)=>{ 
+            { products.map((item)=>{  
               return <Link passHref={true} key={item._id} href={`/product/${item.slug}`} legacyBehavior>
                   <div className="w-1/2 p-2 text-center cursor-pointer lg:w-1/4 md:w-1/2">
                     <div className="flex justify-center ">

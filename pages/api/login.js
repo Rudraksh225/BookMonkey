@@ -2,6 +2,7 @@
 import connectDb from "../../middleware/mongoose"
 import User from "../../models/User"
 var CryptoJS = require("crypto-js");
+var jwt = require('jsonwebtoken');
 
 const handler = async (req, res) => {
     
@@ -18,17 +19,18 @@ const handler = async (req, res) => {
                 // var originalText = dPassword .toString(CryptoJS.enc.Utf8);
 
                 if(req.body.email == email && req.body.password == dPassword ){
-                    res.status(200).json({success: true, email, name })     
-                }
+                    var token = jwt.sign( { email, name }  , 'total59MonkeyCow', { expiresIn: '24h' }); 
+                    res.status(200).json({success: true,token: token})     
+                }   
                 else{
                     res.status(401).json({ success:false, error:"Credential is not valid"})
-                }
+                } 
             }
             else{
                 res.status(401).json({ success:false, error: "User doesn't exist"})
             }
 
-        } 
+        }                 
         else{ 
             res.status(400).json({ error: `${req.method} method is not allowed`})
         }
