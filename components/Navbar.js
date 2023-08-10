@@ -105,7 +105,7 @@ const Navbar = ({user, logout}) => {
           <div className="absolute mr-2 right-16 top-4">
             <a onMouseOver={()=>setDropdown(true)} onMouseLeave={()=>setDropdown(false)}>
               {dropdown && (
-                <div className="absolute p-2 duration-300 ease-in-out bg-blue-300 rounded-md w-52 transition-top md:w-60 top-7 right-1">
+                <div className="absolute p-2 duration-300 ease-in-out bg-blue-300 rounded-md shadow-lg w-52 transition-top md:w-60 top-7 right-1">
                   <ul>
                     <Link href={'/account'}><li className="pt-2 pb-2 border-b-2 border-gray-600 cursor-pointer hover:text-blue-900 border-opacity-30">My Account</li></Link>
                     <Link href={'/myorders'}><li className="pt-2 pb-2 border-b-2 border-gray-600 cursor-pointer hover:text-blue-900 border-opacity-30">My orders</li></Link>

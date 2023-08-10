@@ -2,7 +2,9 @@ import React from 'react'
 
 const myorders = () => {
     return (
-        <div>myorders</div>
+        <div className='container mx-auto bg-gray-500'>
+
+        </div>
     )
 }
 

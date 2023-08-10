@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Router from "next/router";
 
 const Signup = () => {
   const [email, setEmail] = useState();
@@ -10,6 +11,16 @@ const Signup = () => {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    // Check authentication status
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      // Redirect to home page if authenticated
+      Router.push('/')
+    }
+  }, []);
 
 
   const handleChange = (e) => {

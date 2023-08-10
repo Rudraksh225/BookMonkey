@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Router from 'next/router'
 
-const forgotpassword = () => {
+const Forgotpassword = () => {
+
+    
+  useEffect(() => {
+    // Check authentication status
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      // Redirect to home page if authenticated
+      Router.push('/')
+    }
+  }, []);
+  
+
   return (
     <div>
 
@@ -35,4 +49,4 @@ const forgotpassword = () => {
   )
 }
 
-export default forgotpassword
+export default Forgotpassword
