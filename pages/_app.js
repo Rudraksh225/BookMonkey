@@ -38,6 +38,7 @@ export default function App({ Component, pageProps }) {
     localStorage.removeItem("token")
     setUser(null)
     setKey(Math.random())
+    router.push('/')
     toast.success(`Logged out sucessfully`, {
       position: "bottom-center",
       autoClose: 1000,
