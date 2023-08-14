@@ -67,7 +67,7 @@ const Signup = () => {
         });
     }
     else if(error == false){
-      let res = await fetch('http://localhost:3000/api/signup',{
+      let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signup`,{
         method: 'POST',
         headers: {
           'Content-Type':'application/json',

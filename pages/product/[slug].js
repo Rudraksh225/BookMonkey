@@ -17,22 +17,8 @@ const Slug = (product) => {
   const [pin, setPin] = useState();
   const [serviceAbility, setServiceAbility] = useState();
 
-  // const product1 = {
-  //   id: 1,
-  //   name:'Energize your mind  ',
-  //   img: '/../public/books/book1.webp',
-  //   price: 458.00,
-  // }
-
-  // const product2 = {
-  //   id: 2,
-  //   name:'Energize your mind',
-  //   img: '/../public/books/book1.webp',
-  //   price: 458.00,
-  // }
-
   const checkServiceAbility = async() => {
-    let pins = await fetch('http://localhost:3000/api/pincode')
+    let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`)
     let pinJson = await pins.json()
     if(pinJson.includes(parseInt(pin))){
       setServiceAbility(true)
@@ -97,7 +83,7 @@ const Slug = (product) => {
               <div className="pb-5 mt-6 mb-5 border-b-2 border-blue-100 "> </div>
               <div className="flex justify-between">
 
-                <span className="lg:w-[15vh] mt-1 text-xl font-medium bg-red-500 text-gray-900 title-font md:mt-0 md:text-2xl">&#8377; {productinfo.price}</span>
+                <span className="lg:w-[15vh] mt-1 text-xl font-medium text-gray-900 title-font md:mt-0 md:text-2xl">&#8377; {productinfo.price}</span>
 
                 <button onClick={() => buyNow(productinfo)} className='w-auto px-2 py-2 -mr-4 text-sm text-white bg-blue-500 border-0 rounded right-3 md:mr-0 md:px-8 md:py-3 lg:text-base lg:ml-36 md:ml-72 focus:outline-none'>Buy Now</button> 
 
