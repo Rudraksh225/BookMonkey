@@ -12,23 +12,24 @@ const Checkout = () => {
   const dispatch = useDispatch();
   
   return (
-    <div className="container mx-auto ">
+    <div className="container pb-32 mx-auto">
       
-      <h1 className='mt-10 text-2xl font-bold text-center'>Checkout</h1>
+      <h1 className='mt-10 text-3xl font-semibold text-center text-blue-600'>Checkout</h1>
 
-      <div className="md:flex mt-20 checkoutContainer md:h-[600px]">
+      <div className="md:flex mt-10 checkoutContainer md:h-[600px]">
 
-        <div className=" mx-5 mt-3 border-[1px]  drop-shadow-2xl md:h rounded-md overflow-y-scroll md:w-1/2 scrollbar-hide cart">
+        <div className=" mx-5 mt-3 border-[1px] h-[280px]  drop-shadow-2xl md:h-[590px]  rounded-md  overflow-y-scroll md:w-1/2 cart">
 
           <ol>
             {item.map((item) => {
               return(
                 <li key={item._id}>
-                  <div className='flex justify-center my-10'>
+                  <div className='flex my-10 ml-16'>
 
-                    <Image src={item.img} alt='Product image' className='ml-5 md:ml-10' height={100} width={100}/>
-                    <div className='flex-col self-center'>
-                      <div className='mx-4 font-semibold md:mx-12'>{item.title}</div>
+                  
+                    <Image src={item.img} alt='Product image' className='' height={100} width={100}/>    
+                    <div className='flex-col self-center justify-center w-1/2 item-center'>
+                      <div className='font-semibold text-center'>{item.title}</div>
                       <div className='flex justify-center'>
                         <Image onClick={() => dispatch(decrementQuantity(item._id))} src='/../public/minus.png' alt='remove' width={20} height={10} className='cursor-pointer'/>
                         <span className='mx-2 font-semibold pointer-events-none md:mx-3'>{item.quantity}</span>

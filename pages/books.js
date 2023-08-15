@@ -21,7 +21,7 @@ const Books = ({ products }) => {
                     <div className="flex justify-center ">
                       <Image alt="ecommerce" width={600} height={600} className="w-auto h-[18vh] md:h-[28vh] lg:h-[32vh] inline-block md:block" src={item.img}/>
                     </div>
-                    <div className="mt-5 ">
+                    <div className="mt-5">
                       <h3 className="mb-1 text-xs tracking-widest text-gray-500 title-font">{item.category}</h3>
                       <h2 className="text-lg font-medium text-gray-900 title-font">{item.title}</h2>
                       <p className="mt-1 ">&#x20B9; {item.price}</p>

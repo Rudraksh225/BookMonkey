@@ -27,7 +27,7 @@ const Navbar = ({user, logout}) => {
   const removeCartNotify = (title) => toast.success(`${title} removed from cart`, {
     position: "bottom-center",
     autoClose: 1000,
-    hideProgressBar: false,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
@@ -38,7 +38,7 @@ const Navbar = ({user, logout}) => {
     const addCartNotify = (title) => toast.success(`${title} added to cart`, {
       position: "bottom-center",
       autoClose: 1000,
-      hideProgressBar: false,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
@@ -243,7 +243,7 @@ const Navbar = ({user, logout}) => {
       <ToastContainer
         position="bottom-center"
         autoClose={3000}
-        hideProgressBar={false}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}

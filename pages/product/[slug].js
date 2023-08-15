@@ -42,6 +42,17 @@ const Slug = (product) => {
     // router.push('./checkout') //Currently paused this.   ********* This caused an error, solve this **********  **********~~~~~~~~~*********
   }
 
+  const addCartNotify = (title) => toast.success(`${title} added to cart`, {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+    });
+
   // const handleAddToCart = (product) => {
   //   console.log("Function called")
   //   dispatch(addToCart(product))
@@ -51,14 +62,14 @@ const Slug = (product) => {
     <>
       <section className="overflow-hidden text-gray-600 body-font">
 
-      
+      {/* <div className="flex flex-wrap mx-auto lg:w-4/5"></div> */}
 
-        <div className="container px-2 py-24 mx-auto">
-          <div className="flex flex-wrap mx-auto lg:w-4/5">
-            <Image alt="ecommerce" className=" lg:w-[35vh] lg:h-auto md:ml-5 lg:max-w-[40vh] max-h-[90vh] object-fill object-center rounded" src={productinfo.img} width={400} height={100}/> 
-            <div className="w-full mt-6 lg:w-1/2 lg:py-6 lg:ml-40 lg:mt-0">
+        <div className="container flex flex-wrap px-8 py-12 mx-auto ring-blue-400 lg:w-4/5">
+
+            <Image alt="ecommerce" className=" lg:w-[39vh] md:w-[25vh] w-[25vh] lg:h-auto mx-auto lg::ml-5 lg:max-w-[40vh] max-h-[90vh] object-fill object-center rounded" src={productinfo.img} width={400} height={100}/> 
+            <div className="w-full mt-10 lg:w-1/2 lg:py-6 lg:ml-40 lg:mt-0">
               <h2 className="text-sm tracking-widest text-gray-500 title-font">BRAND NAME</h2>
-              <h1 className="mb-1 text-3xl font-medium text-gray-900 title-font">{productinfo.title}</h1>
+              <h1 className="mb-1 text-2xl font-medium text-gray-900 md:text-3xl title-font">{productinfo.title}</h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
                   <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
@@ -83,11 +94,11 @@ const Slug = (product) => {
               <div className="pb-5 mt-6 mb-5 border-b-2 border-blue-100 "> </div>
               <div className="flex justify-between">
 
-                <span className="lg:w-[15vh] mt-1 text-xl font-medium text-gray-900 title-font md:mt-0 md:text-2xl">&#8377; {productinfo.price}</span>
+                <span className="lg:w-[10vh] mt-1 text-xl font-medium text-gray-900 title-font md:mt-0 md:text-2xl">&#8377; {productinfo.price}</span>
 
                 <button onClick={() => buyNow(productinfo)} className='w-auto px-2 py-2 -mr-4 text-sm text-white bg-blue-500 border-0 rounded right-3 md:mr-0 md:px-8 md:py-3 lg:text-base lg:ml-36 md:ml-72 focus:outline-none'>Buy Now</button> 
 
-                <button onClick={() => dispatch(addToCart(productinfo))} className="flex items-center justify-center w-auto px-3 py-2 text-sm text-white bg-blue-500 border-0 rounded md:mr-0 -mr-7 h-9 md:w-auto md:h-auto md:ml-auto focus:outline-none hover:bg-blue-600 md:text-base">
+                <button onClick={() => {dispatch(addToCart(productinfo)); addCartNotify(productinfo.title);}} className="flex items-center justify-center w-auto px-3 py-2 text-sm text-white bg-blue-500 border-0 rounded md:mr-0 -mr-7 h-9 md:w-auto md:h-auto md:ml-auto focus:outline-none hover:bg-blue-600 md:text-base">
                   Add To Cart <Image src='/../public/addtocart.png' alt='Add to cart' width={40} height={25} className='w-5 h-5 ml-5 md:w-25 md:h-25'/>
                 </button>
                 <button className="inline-flex items-center justify-center w-8 h-8 p-0 ml-4 text-gray-500 bg-gray-200 border-0 rounded-full lg:w-10 lg:h-10">
@@ -107,8 +118,20 @@ const Slug = (product) => {
                 Yay! This pincode is serviceable
               </div>}
             </div>
-          </div>
+          
         </div>
+        <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        limit={2}
+        pauseOnFocusLoss
+        pauseOnHover
+        theme="light"
+      />
       </section>
     </>
   )
